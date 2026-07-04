@@ -41,7 +41,7 @@
       // graceful fallback — no live prices, quiz still works
       state.prices = {};
       const t = $("#ticker");
-      if (t) t.textContent = "// price feed unavailable · offline mode";
+      if (t) t.textContent = "live prices unavailable right now";
     }
   }
 
@@ -65,7 +65,7 @@
       const p = state.prices[c.id];
       if (!p) return `<span class="sym">${c.symbol}</span><span class="flat">--</span>`;
       const dir = p.change24h >= 0 ? "up" : "down";
-      const arrow = p.change24h >= 0 ? "▲" : "▼";
+      const arrow = p.change24h >= 0 ? "↗" : "↘";
       return `<span class="sym">${c.symbol}</span> ${fmtPrice(p.usd)} <span class="${dir}">${arrow} ${fmtChange(p.change24h)}</span>`;
     });
     t.innerHTML = parts.join("  ·  ");
@@ -92,13 +92,13 @@
     container.innerHTML = "";
     const promptEl = document.createElement("div");
     promptEl.className = "q-prompt";
-    promptEl.textContent = "> " + q.prompt;
+    promptEl.textContent = q.prompt;
     container.appendChild(promptEl);
 
     if (q.hint) {
       const hint = document.createElement("div");
       hint.className = "q-hint";
-      hint.textContent = "// " + q.hint;
+      hint.textContent = q.hint;
       container.appendChild(hint);
     }
 
@@ -108,7 +108,7 @@
       const btn = document.createElement("button");
       btn.className = "choice";
       btn.type = "button";
-      btn.innerHTML = `<span class="key">[${String.fromCharCode(65 + i)}]</span><span>${opt.label}</span>`;
+      btn.innerHTML = `<span class="key">${String.fromCharCode(65 + i)}.</span><span>${opt.label}</span>`;
       btn.addEventListener("click", () => selectOption(opt));
       choices.appendChild(btn);
     });
@@ -190,8 +190,8 @@
     const p = state.prices[c.id];
     const priceHTML = p
       ? `<div class="price">${fmtPrice(p.usd)}</div>
-         <div class="delta ${p.change24h >= 0 ? "up" : "down"}">${p.change24h >= 0 ? "▲" : "▼"} ${fmtChange(p.change24h)} 24h</div>`
-      : `<div class="price">--</div><div class="delta flat">no live price</div>`;
+         <div class="delta ${p.change24h >= 0 ? "up" : "down"}">${p.change24h >= 0 ? "↗" : "↘"} ${fmtChange(p.change24h)} today</div>`
+      : `<div class="price">—</div><div class="delta flat">price loading…</div>`;
 
     const axisRow = (label, val) => `
       <div class="axis">
@@ -202,14 +202,14 @@
 
     const runnersHTML = runners.map(r => `
       <div class="runner">
-        <div><span class="sym">${r.coin.symbol}</span> ${r.coin.name}</div>
+        <div><span class="sym">${r.coin.symbol}</span><span class="name">${r.coin.name}</span></div>
         <div class="match">${r.pct}% fit</div>
       </div>`).join("");
 
     return `
       <div class="result-head">
-        <span class="ok">[MATCH FOUND]</span>
-        <span>confidence: ${winner.pct}%</span>
+        <span class="ok">your match</span>
+        <span>${winner.pct}% fit</span>
       </div>
 
       <div class="coin-hero">
@@ -223,7 +223,7 @@
 
       <p class="blurb">${c.blurb}</p>
 
-      <div class="section-label">your profile</div>
+      <div class="section-label">your money personality</div>
       <div class="axes">
         ${axisRow("RISK", userAxes.risk)}
         ${axisRow("CONVICTION", userAxes.conviction)}
@@ -231,21 +231,21 @@
         ${axisRow("THRILL", userAxes.thrill)}
       </div>
 
-      <div class="section-label">why this match</div>
+      <div class="section-label">why you two click</div>
       <ul class="traits">
         ${c.traits.map(t => `<li>${t}</li>`).join("")}
       </ul>
 
-      <div class="section-label">also close</div>
+      <div class="section-label">runners-up</div>
       <div class="runners">${runnersHTML}</div>
 
       <div class="actions">
-        <button id="retake" class="btn primary">&gt; RETAKE</button>
-        <button id="share" class="btn">copy share text</button>
+        <button id="retake" class="btn primary">retake the quiz</button>
+        <button id="share" class="btn">share my match</button>
       </div>
 
       <div class="disclaimer">
-        <span class="warn">[!]</span> this is a personality quiz, not financial advice. crypto is volatile. do your own research. only invest what you can afford to lose.
+        <strong>a note:</strong> this is a personality quiz, not financial advice. crypto is volatile. do your own research and only invest what you can afford to lose.
       </div>
     `;
   }

@@ -3,49 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COIN//MATCH — crypto personality terminal</title>
+<title>coin match · which coin fits your vibe?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="scanlines"></div>
-<div class="grid-bg"></div>
+<div class="aurora"></div>
+<div class="grain"></div>
 
 <header class="topbar">
   <div class="brand">
-    <span class="blink">●</span> COIN//MATCH
-    <span class="sub">v1.0 // personality → asset terminal</span>
+    <span class="logo-dot"></span>
+    <span class="brand-name">coin<em>match</em></span>
   </div>
-  <div class="ticker" id="ticker">loading market feed...</div>
+  <div class="ticker" id="ticker">loading live prices…</div>
 </header>
 
 <main id="app">
   <!-- INTRO -->
   <section id="intro" class="panel">
-    <div class="ascii">
-<pre>
-╔══════════════════════════════════════════════╗
-║  WHICH COIN MATCHES YOUR WIRING?             ║
-║  8 questions · ~60 seconds · live prices     ║
-╚══════════════════════════════════════════════╝
-</pre>
-    </div>
-    <h1>find the coin that <span class="accent">thinks like you do</span></h1>
-    <p class="lede">answer 8 questions about how you handle money, risk, and boredom. we cross-reference your profile against 10 live-priced assets and return a single match with a full breakdown.</p>
+    <span class="eyebrow">a soft little personality quiz</span>
+    <h1>find the coin that <span class="accent">matches your energy</span></h1>
+    <p class="lede">answer 8 gentle questions about how you handle money, risk, and patience. we cross-check your vibe against 10 real, live-priced coins and hand you back the one that fits.</p>
     <ul class="features">
-      <li>[+] scored on 4 axes: risk · conviction · horizon · thrill</li>
-      <li>[+] live prices via coingecko, refreshed on load</li>
-      <li>[+] not financial advice. obviously.</li>
+      <li><span class="bullet">✦</span> scored across risk, conviction, horizon &amp; thrill</li>
+      <li><span class="bullet">✦</span> real prices, pulled fresh every time you land</li>
+      <li><span class="bullet">✦</span> takes about a minute · not financial advice</li>
     </ul>
-    <button id="start" class="cta">&gt; RUN DIAGNOSTIC</button>
+    <button id="start" class="cta">start the quiz →</button>
   </section>
 
   <!-- QUIZ -->
   <section id="quiz" class="panel hidden">
     <div class="progress">
-      <div class="progress-label"><span id="qnum">01</span> / <span id="qtotal">08</span></div>
+      <div class="progress-label">question <span id="qnum">01</span> of <span id="qtotal">08</span></div>
       <div class="progress-bar"><div id="progress-fill"></div></div>
     </div>
     <div id="question"></div>
@@ -56,8 +49,8 @@
 </main>
 
 <footer>
-  <div>// COIN//MATCH terminal · static · client-side only</div>
-  <div>data: coingecko public api · not financial advice</div>
+  <div>coin match · a soft crypto quiz</div>
+  <div>prices via coingecko · not financial advice</div>
 </footer>
 
 <script src="data.js"></script>
