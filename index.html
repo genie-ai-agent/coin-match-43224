@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COIN//MATCH — crypto personality terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="scanlines"></div>
+<div class="grid-bg"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="blink">●</span> COIN//MATCH
+    <span class="sub">v1.0 // personality → asset terminal</span>
+  </div>
+  <div class="ticker" id="ticker">loading market feed...</div>
+</header>
+
+<main id="app">
+  <!-- INTRO -->
+  <section id="intro" class="panel">
+    <div class="ascii">
+<pre>
+╔══════════════════════════════════════════════╗
+║  WHICH COIN MATCHES YOUR WIRING?             ║
+║  8 questions · ~60 seconds · live prices     ║
+╚══════════════════════════════════════════════╝
+</pre>
+    </div>
+    <h1>find the coin that <span class="accent">thinks like you do</span></h1>
+    <p class="lede">answer 8 questions about how you handle money, risk, and boredom. we cross-reference your profile against 10 live-priced assets and return a single match with a full breakdown.</p>
+    <ul class="features">
+      <li>[+] scored on 4 axes: risk · conviction · horizon · thrill</li>
+      <li>[+] live prices via coingecko, refreshed on load</li>
+      <li>[+] not financial advice. obviously.</li>
+    </ul>
+    <button id="start" class="cta">&gt; RUN DIAGNOSTIC</button>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="panel hidden">
+    <div class="progress">
+      <div class="progress-label"><span id="qnum">01</span> / <span id="qtotal">08</span></div>
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+    <div id="question"></div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="panel hidden"></section>
+</main>
+
+<footer>
+  <div>// COIN//MATCH terminal · static · client-side only</div>
+  <div>data: coingecko public api · not financial advice</div>
+</footer>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
