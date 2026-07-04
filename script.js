@@ -40,8 +40,7 @@
     } catch (e) {
       // graceful fallback — no live prices, quiz still works
       state.prices = {};
-      const t = $("#ticker");
-      if (t) t.textContent = "live prices unavailable right now";
+      renderTicker();
     }
   }
 
@@ -61,14 +60,18 @@
   function renderTicker() {
     const t = $("#ticker");
     if (!t) return;
-    const parts = window.COINS.slice(0, 6).map(c => {
+    const pill = c => {
       const p = state.prices[c.id];
-      if (!p) return `<span class="sym">${c.symbol}</span><span class="flat">--</span>`;
+      if (!p) {
+        return `<span class="ticker-pill"><span class="sym">${c.symbol}</span><span class="flat">--</span></span>`;
+      }
       const dir = p.change24h >= 0 ? "up" : "down";
       const arrow = p.change24h >= 0 ? "↗" : "↘";
-      return `<span class="sym">${c.symbol}</span> ${fmtPrice(p.usd)} <span class="${dir}">${arrow} ${fmtChange(p.change24h)}</span>`;
-    });
-    t.innerHTML = parts.join("  ·  ");
+      return `<span class="ticker-pill"><span class="sym">${c.symbol}</span><span class="px">${fmtPrice(p.usd)}</span><span class="${dir}">${arrow} ${fmtChange(p.change24h)}</span></span>`;
+    };
+    const one = window.COINS.map(pill).join("");
+    // duplicate for seamless -50% translate loop
+    t.innerHTML = one + one;
   }
 
   // ---------- QUIZ ----------
